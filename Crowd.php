@@ -47,7 +47,7 @@ class Crowd {
      * Authenticates an application client to the Crowd security server.
      */
     function authenticateApplication() {
-        $param = array('in0' => array('credential' => array('credential' => $this->crowd_config['app_credential']),
+        $param = array('in0' => array('credential' => array('credential' => $this->crowd_config['app_credential'], 'encryptedCredential' => 0),
                                       'name'       => $this->crowd_config['app_name']));
         try {
             $resp = $this->crowd_client->authenticateApplication($param);
@@ -76,7 +76,8 @@ class Crowd {
         $param = array('in0' => array('name'        => $this->crowd_config['app_name'],
                                       'token'       => $this->crowd_app_token),
                        'in1' => array('application' => $this->crowd_config['app_name'],
-                                      'credential'  => array('credential' => $credential),
+                                      'credential'  => array('credential' => $credential,'encryptedCredential' => 0
+),
                                       'name'        => $name,
                                       'validationFactors' => array( array('name'  => 'User-Agent',
                                                                           'value' => $user_agent),
